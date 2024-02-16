@@ -9,13 +9,14 @@ export default {
       },
       backgroundImage: {
         "hero-pattern": "url('/bg-cafe.jpg')",
+        "star-fill":"url('/vector.svg')",
       },
       colors: {
         "dark-grey": "#1B1D1F",
         black: "#111315",
         "light-grey": "#6F757C",
         lemon: "#BEE3CC",
-        yellow: "F6C768",
+        yellow: "#F6C768",
         "light-pink": "#FEF7EE",
         red: "#ED735D"
       },

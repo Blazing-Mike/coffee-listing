@@ -1,61 +1,40 @@
 ---
-interface Props {
-	title: string;
-	body: string;
-	href: string;
-}
-
-const { href, title, body } = Astro.props;
+const { name, price, image, popular, votes, ratings, available } = Astro.props;
 ---
 
-<li class="link-card">
-	<a href={href}>
-		<h2>
-			{title}
-			<span>&rarr;</span>
-		</h2>
-		<p>
-			{body}
-		</p>
-	</a>
-</li>
-<style>
-	.link-card {
-		list-style: none;
-		display: flex;
-		padding: 1px;
-		background-color: #23262d;
-		background-image: none;
-		background-size: 400%;
-		border-radius: 7px;
-		background-position: 100%;
-		transition: background-position 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-		box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.1);
-	}
-	.link-card > a {
-		width: 100%;
-		text-decoration: none;
-		line-height: 1.4;
-		padding: calc(1.5rem - 1px);
-		border-radius: 8px;
-		color: white;
-		background-color: #23262d;
-		opacity: 0.8;
-	}
-	h2 {
-		margin: 0;
-		font-size: 1.25rem;
-		transition: color 0.6s cubic-bezier(0.22, 1, 0.36, 1);
-	}
-	p {
-		margin-top: 0.5rem;
-		margin-bottom: 0;
-	}
-	.link-card:is(:hover, :focus-within) {
-		background-position: 0;
-		background-image: var(--accent-gradient);
-	}
-	.link-card:is(:hover, :focus-within) h2 {
-		color: rgb(var(--accent-light));
-	}
-</style>
+<div class="font-primary relative">
+  <img src={image} alt="coffee" class="rounded-xl w-[300px] h-full" />
+  {
+    popular && (
+      <span class="bg-yellow w-20 flex justify-center capitalize font-semibold text-center py-1 rounded-2xl absolute text-sm text-black top-3 left-4">
+        popular
+      </span>
+    )
+  }
+  <div class="flex justify-between mt-3 items-start">
+    <p class="text-light-pink text-base">{name}</p>
+    <div class="bg-lemon rounded-md font-semibold text-black px-2 py-1 text-xs">
+      {price}
+    </div>
+  </div>
+  <div class="flex items-end mt-4 justify-between">
+    <div class="flex gap-1 justify-start">
+      <p class="">
+        {
+          ratings !== null ? (
+            <img src="/Star_fill.svg" alt="" class="" />
+          ) : (
+            <img src="/Star.svg" alt="" class="" />
+          )
+        }
+      </p>
+
+      <p class="font-semibold text-light-pink">{ratings}</p>
+
+      <span class="text-light-grey font-medium"
+        >{votes > 0 ? `(${votes} votes)` : "No ratings"}</span
+      >
+    </div>
+    <div>{available == false && <p class="text-red">Sold out</p>}</div>
+  </div>
+</div>
