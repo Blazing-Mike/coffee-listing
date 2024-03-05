@@ -3,9 +3,12 @@ import type CardProps from "../utils/models";
 import Card from "./Card.astro";
 
 const response = await fetch(
-  "https://raw.githubusercontent.com/devchallenges-io/web-project-ideas/main/front-end-projects/data/simple-coffee-listing-data.json"
+  "https://raw.githubusercontent.com/devchallenges-io/web-project-ideas/main/front-end-projects/data/simple-coffee-listing-data.json?available=true"
 );
 const coffeeCollection = await response.json();
+const filteredCollection = coffeeCollection.filter(
+  (item: CardProps) => item.available === true
+);
 ---
 
 <div
@@ -24,14 +27,13 @@ const coffeeCollection = await response.json();
 
   <div class="flex justify-center gap-4 mt-4">
     <a href="/">
-      <button
-        class="text-light-pink active:bg-light-grey bg-light-grey w-[8rem] h-[2rem] rounded-lg text-sm allproducts"
+      <button class="text-light-pink active:bg-light-grey text-sm allproducts"
         >All Products</button
       >
     </a>
     <a href="/available">
       <button
-        class="text-light-pink active:bg-light-grey text-sm availableproducts"
+        class="text-light-pink active:bg-light-grey bg-light-grey w-[8rem] h-[2rem] rounded-lg text-sm availableproducts"
         >Available Now</button
       >
     </a>
@@ -39,7 +41,7 @@ const coffeeCollection = await response.json();
 
   <div class="my-10 flex flex-wrap justify-center gap-10 items-center">
     {
-      coffeeCollection.map((item: CardProps) => (
+      filteredCollection.map((item: CardProps) => (
         <div class="">
           <Card
             name={item.name}
@@ -55,15 +57,3 @@ const coffeeCollection = await response.json();
     }
   </div>
 </div>
-
-<script>
-  const AllProductsBtn = document.querySelector(".allproducts");
-  const availableProductsBtn = document.querySelector(".availableproducts");
-  let showAvailable = false;
-
-  availableProductsBtn.addEventListener("click", () => {
-    showAvailable = true;
-  });
-
-  AllProductsBtn.addEventListener("click", () => {});
-</script>
